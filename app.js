@@ -3,7 +3,11 @@ import axios  from 'axios';
 const app = new express();
 
 
-function GetHotels(region){
+app.get('/',(req, res) =>{
+  GetHotels('Fortaleza',req,res);
+});
+
+function GetHotels(region,req,res){
 
   const options = {
       method: 'GET',
@@ -19,7 +23,7 @@ function GetHotels(region){
     };
     
     axios.request(options).then(function (response) {
-        console.log(response.data.suggestions[1]); // aqui no response vem os hoteis, faça o filtro como quiser um exemplo de filtro é suggestions, ficaria data.response.suggestions
+        res.json(response.data); // aqui no response vem os hoteis, faça o filtro como quiser um exemplo de filtro é suggestions, ficaria data.response.suggestions
     }).catch(function (error) {
         console.error(error);
     });
@@ -51,6 +55,6 @@ axios.request(options).then(function (response) {
 });
 }
 
-GetHotels('Fortaleza'); // COM ESTE COMANDO EU PROCURO A REGIAO DO HOTEL
-GetProprietes('385023','2022-07-03','2022-07-10','1','BRL','pt-br') // COM ESTE COMANDO EU PROCURO O VALOR DO PREÇO DEPENDENDO AS OPÇÕES QUE COLOCAR
-app.listen(8080);
+//GetHotels('Fortaleza'); // COM ESTE COMANDO EU PROCURO A REGIAO DO HOTEL
+//GetProprietes('385023','2022-07-03','2022-07-10','1','BRL','pt-br') // COM ESTE COMANDO EU PROCURO O VALOR DO PREÇO DEPENDENDO AS OPÇÕES QUE COLOCAR
+app.listen(5000);
