@@ -3,8 +3,12 @@ import axios  from 'axios';
 const app = new express();
 
 
-app.get('/',(req, res) =>{
-  GetHotels('Fortaleza',req,res);
+app.get('/regiao/:nome',(req, res) =>{
+  GetHotels(req.params.nome,req,res);
+});
+
+app.get('/hotel/:idHotel/:checkIn/:checkOut/:adults1/:currency/:locale',(req, res) =>{
+  GetProprietes(req.params.idHotel,req.params.checkIn,req.params.checkOut,req.params.adults1,req.params.currency,req.params.locale,req,res);
 });
 
 function GetHotels(region,req,res){
@@ -29,7 +33,7 @@ function GetHotels(region,req,res){
     });
 }
 
-function GetProprietes(idHotel, checkIn, checkOut, adults1, currency, locale){
+function GetProprietes(idHotel, checkIn, checkOut, adults1, currency, locale,req,res){
 const options = {
   method: 'GET',
   url: 'https://hotels4.p.rapidapi.com/properties/get-details',
@@ -48,7 +52,7 @@ const options = {
 };
 
 axios.request(options).then(function (response) {
-	console.log(response.data.data.body.pageInfo.pageType);
+	res.json(response.data);
 
 }).catch(function (error) {
 	console.error(error);
