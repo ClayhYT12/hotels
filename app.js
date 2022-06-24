@@ -3,12 +3,12 @@ import axios  from 'axios';
 const app = new express();
 
 
-app.post('/regiao',(req, res) =>{
-  GetHotels(req.body.nome,req,res);
+app.post('/regiao/:nome',(req, res) =>{
+  GetHotels(req.params.nome,req,res);
 });
 
-app.post('/hotel',(req, res) =>{
-  GetProprietes(req.body.idHotel,req.body.checkIn,req.body.checkOut,req.body.adults1,req.body.currency,req.body.locale,req,res);
+app.post('/hotel/:idHotel/:checkIn/:checkOut/:adults1/:currency/:locale',(req, res) =>{
+  GetProprietes(req.params.idHotel,req.params.checkIn,req.params.checkOut,req.params.adults1,req.params.currency,req.params.locale,req,res);
 });
 
 function GetHotels(region,req,res){
